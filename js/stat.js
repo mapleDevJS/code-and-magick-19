@@ -38,13 +38,16 @@ function getRandomLightness() {
   return Math.round(Math.random() * 100);
 }
 
+var renderHeader = function (ctx, font, color) {
+  ctx.font = font;
+  ctx. fillStyle = color;
+  ctx.fillText('Ура вы победили!', CLOUD_X + BAR_GAP, CLOUD_Y + HEADER_GAP);
+  ctx.fillText('Список результатов:', CLOUD_X + BAR_GAP, CLOUD_Y + HEADER_GAP + HEADER_HEIGHT);
+};
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, SHADOW_COLOR);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_COLOR);
-  ctx.font = FONT_FAMILY;
-  ctx.fillStyle = TEXT_COLOR;
-  ctx.fillText('Ура вы победили!', CLOUD_X + BAR_GAP, CLOUD_Y + HEADER_GAP);
-  ctx.fillText('Список результатов:', CLOUD_X + BAR_GAP, CLOUD_Y + HEADER_GAP + HEADER_HEIGHT);
+  renderHeader(ctx, FONT_FAMILY, TEXT_COLOR);
 
   var maxTime = getMaxElement(times);
 
