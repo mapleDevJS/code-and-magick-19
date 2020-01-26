@@ -37,7 +37,7 @@ function generateWizard(wizard) {
   return wizard;
 }
 
-var renderWizard = function (wizard) {
+var createWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
@@ -64,7 +64,7 @@ var showElement = function (element) {
 
 var renderWizards = function (wizards) {
   for (var j = 0; j < wizards.length; j++) {
-    fragment.appendChild(renderWizard(wizards[j]));
+    fragment.appendChild(createWizard(wizards[j]));
   }
   return wizards;
 };
