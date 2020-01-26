@@ -48,11 +48,16 @@ var renderWizard = function (wizard) {
 };
 
 
-var wizards = [];
+var getWizards = function () {
+  var wizards = [];
 
-for (var i = 0; i < WIZARDS_NUMBER; i++) {
-  var wizard = {};
-  wizards[i] = (generateWizard(wizard));
+  for (var i = 0; i < WIZARDS_NUMBER; i++) {
+    var wizard = {};
+    wizards[i] = (generateWizard(wizard));
+  }
+  return wizards;
+};
+
 var showElement = function (element) {
   element.classList.remove('hidden');
 };
