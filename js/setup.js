@@ -53,8 +53,10 @@ var wizards = [];
 for (var i = 0; i < WIZARDS_NUMBER; i++) {
   var wizard = {};
   wizards[i] = (generateWizard(wizard));
+var showElement = function (element) {
+  element.classList.remove('hidden');
+};
 
-}
 
 var userDialog = document.querySelector('.setup');
 var similarListElement = userDialog.querySelector('.setup-similar-list');
@@ -69,6 +71,6 @@ for (var j = 0; j < wizards.length; j++) {
 }
 similarListElement.appendChild(fragment);
 
-userDialog.classList.remove('hidden');
-similarListElement.classList.remove('hidden');
-similarListElementSetup.classList.remove('hidden');
+showElement(userDialog);
+showElement(similarListElement);
+showElement(similarListElementSetup);
