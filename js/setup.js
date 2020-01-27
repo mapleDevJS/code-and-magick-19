@@ -67,7 +67,7 @@ var renderWizards = function (wizards) {
   for (var j = 0; j < wizards.length; j++) {
     fragment.appendChild(createWizard(wizards[j]));
   }
-  return fragment;
+  similarListElement.appendChild(fragment);
 };
 
 var wizards = getWizards();
@@ -79,7 +79,7 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
 
-similarListElement.appendChild(renderWizards(wizards));
+renderWizards(wizards);
 
 showElement(userDialog);
 showElement(similarListElement);
