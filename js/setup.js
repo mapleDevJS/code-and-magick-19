@@ -63,10 +63,11 @@ var showElement = function (element) {
 };
 
 var renderWizards = function (wizards) {
+  var fragment = document.createDocumentFragment();
   for (var j = 0; j < wizards.length; j++) {
     fragment.appendChild(createWizard(wizards[j]));
   }
-  return wizards;
+  return fragment;
 };
 
 var wizards = getWizards();
@@ -78,9 +79,7 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content
     .querySelector('.setup-similar-item');
 
-var fragment = document.createDocumentFragment();
-renderWizards(wizards);
-similarListElement.appendChild(fragment);
+similarListElement.appendChild(renderWizards(wizards));
 
 showElement(userDialog);
 showElement(similarListElement);
