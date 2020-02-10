@@ -1,8 +1,10 @@
 'use strict';
 
 (function () {
-  var ESC_KEY = 'Escape';
-  var ENTER_KEY = 'Enter';
+  var KEY = {
+    ESCAPE: 'Escape',
+    ENTER: 'Enter'
+  };
 
   var setup = document.querySelector('.setup');
 
@@ -15,7 +17,7 @@
   };
 
   var onPopupEscPress = function (evt) {
-    if (evt.key === ESC_KEY) {
+    if (evt.key === KEY.ESCAPE) {
       closePopup();
     }
   };
@@ -32,8 +34,7 @@
   };
 
   window.utils = {
-    ESC_KEY: ESC_KEY,
-    ENTER_KEY: ENTER_KEY,
+    KEY: KEY,
     getRandomElement: getRandomElement,
     showElement: showElement,
     openPopup: openPopup,
