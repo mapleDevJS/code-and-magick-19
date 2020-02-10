@@ -71,7 +71,7 @@
   });
 
   setupOpen.addEventListener('keydown', function (evt) {
-    if (evt.key === window.utils.ENTER_KEY) {
+    if (evt.key === window.utils.KEY.ENTER) {
       window.utils.openPopup();
     }
   });
