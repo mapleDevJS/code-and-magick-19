@@ -75,7 +75,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  window.backend.load(onSuccess, onError);
+  window.backend.load(window.backend.SERVER_URL.GET, onSuccess, onError);
 
   window.utils.showElement(userDialog);
   window.utils.showElement(similarListElement);
@@ -103,7 +103,7 @@
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), window.utils.closePopup(), onError);
+    window.backend.save(window.backend.SERVER_URL.PUSH, new FormData(form), window.utils.closePopup(), onError);
   });
 
 })();
