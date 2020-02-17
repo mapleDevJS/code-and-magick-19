@@ -1,40 +1,40 @@
 'use strict';
 
 (function () {
-  var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var WIZARD_LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+  // var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+  // var WIZARD_LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var WIZARDS_NUMBER = 4;
 
-  function generateName(firstName, lastName) {
-    return window.utils.getRandomElement(firstName) + ' ' + window.utils.getRandomElement(lastName);
-  }
+  // function generateName(firstName, lastName) {
+  //   return window.utils.getRandomElement(firstName) + ' ' + window.utils.getRandomElement(lastName);
+  // }
 
-  function generateWizard(wizard) {
-    wizard.name = generateName(WIZARD_NAMES, WIZARD_LAST_NAMES);
-    wizard.coatColor = window.utils.getRandomElement(window.colorize.COAT_COLORS);
-    wizard.eyesColor = window.utils.getRandomElement(window.colorize.EYES_COLORS);
-
-    return wizard;
-  }
+  // function generateWizard(wizard) {
+  //   wizard.name = generateName(WIZARD_NAMES, WIZARD_LAST_NAMES);
+  //   wizard.coatColor = window.utils.getRandomElement(window.colorize.COAT_COLORS);
+  //   wizard.eyesColor = window.utils.getRandomElement(window.colorize.EYES_COLORS);
+  //
+  //   return wizard;
+  // }
 
   var createWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
 
     return wizardElement;
   };
 
 
-  var getWizards = function () {
-    var wizards = [];
+  var getWizards = function (data) {
+    var wizards = window.utils.getMultipleRandomElements(data, WIZARDS_NUMBER);
 
-    for (var i = 0; i < WIZARDS_NUMBER; i++) {
-      var wizard = {};
-      wizards[i] = (generateWizard(wizard));
-    }
+    //
+    // for (var i = 0; i < WIZARDS_NUMBER; i++) {
+    //   wizards[i] = window.utils.getMultipleRandomElements(data, WIZARDS_NUMBER);
+    // }
     return wizards;
   };
 
@@ -46,9 +46,8 @@
     similarListElement.appendChild(fragment);
   };
 
-  var wizards = getWizards();
-
   var userDialog = document.querySelector('.setup');
+  var form = document.querySelector('.setup-wizard-form');
   var similarListElement = userDialog.querySelector('.setup-similar-list');
   var similarListElementSetup = document.querySelector('.setup-similar');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -59,8 +58,24 @@
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = setup.querySelector('.setup-close');
 
+  var onSuccess = function (data) {
+    var wizards = getWizards(data);
+    renderWizards(wizards);
+  };
 
-  renderWizards(wizards);
+  var onError = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.backend.load(window.backend.SERVER_URL.GET, onSuccess, onError);
 
   window.utils.showElement(userDialog);
   window.utils.showElement(similarListElement);
@@ -85,4 +100,10 @@
       window.utils.closePopup();
     }
   });
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(window.backend.SERVER_URL.PUSH, new FormData(form), window.utils.closePopup(), onError);
+  });
+
 })();
