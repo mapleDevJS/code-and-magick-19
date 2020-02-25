@@ -1,9 +1,21 @@
 'use strict';
 
 (function () {
-  var KEY = {
+  var key = {
     ESCAPE: 'Escape',
     ENTER: 'Enter'
+  };
+
+  var show = function (error) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = error;
+    document.body.insertAdjacentElement('afterbegin', node);
   };
 
   var setup = document.querySelector('.setup');
@@ -30,7 +42,7 @@
   };
 
   var onPopupEscPress = function (evt) {
-    if (evt.key === KEY.ESCAPE) {
+    if (evt.key === key.ESCAPE) {
       closePopup();
     }
   };
@@ -47,7 +59,8 @@
   };
 
   window.utils = {
-    KEY: KEY,
+    key: key,
+    show: show,
     getRandomElement: getRandomElement,
     getMultipleRandomElements: getMultipleRandomElements,
     showElement: showElement,
