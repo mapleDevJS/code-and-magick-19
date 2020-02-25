@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
-  var SERVER_URL = {
+  var serverUrl = {
     GET: 'https://js.dump.academy/code-and-magick/data',
-    PUSH: 'https://js.dump.academy/code-and-magick'
+    POST: 'https://js.dump.academy/code-and-magick'
   };
 
   var TIMEOUT_IN_MS = 1;
@@ -53,7 +53,7 @@
   };
 
   window.backend = {
-    SERVER_URL: SERVER_URL,
+    serverUrl: serverUrl,
     save: save,
     load: load
   };
