@@ -41,19 +41,19 @@
 
   var coatColor;
   var eyesColor;
-  var wizards = [];
+  var listOfWizards = [];
 
   var getRank = function (wizard) {
-    var rank = 0;
+    var getRankDiff = 0;
 
     if (wizard.colorCoat === coatColor) {
-      rank += 2;
+      getRankDiff += 2;
     }
     if (wizard.colorEyes === eyesColor) {
-      rank += 1;
+      getRankDiff += 1;
     }
 
-    return rank;
+    return getRankDiff;
   };
 
   var create = function (wizard) {
@@ -70,13 +70,13 @@
     similarListElement.innerHTML = '';
     var fragment = document.createDocumentFragment();
     for (var j = 0; j < WIZARDS_NUMBER; j++) {
-      fragment.appendChild(create(wizards[j]));
+      fragment.appendChild(create(listOfWizards[j]));
     }
 
     similarListElement.appendChild(fragment);
   };
 
-  var namesComparator = function (left, right) {
+  var compareNames = function (left, right) {
     if (left > right) {
       return 1;
     } else if (left < right) {
@@ -86,17 +86,17 @@
     }
   };
 
-  var rank = function (left, right) {
+  var getRankDiff = function (left, right) {
     var rankDiff = getRank(right) - getRank(left);
     if (rankDiff === 0) {
-      rankDiff = namesComparator(left.name, right.name);
+      rankDiff = compareNames(left.name, right.name);
     }
     return rankDiff;
   };
 
   var update = function () {
-    wizards = wizards.slice().sort(rank);
-    render(wizards);
+    listOfWizards = listOfWizards.slice().sort(getRankDiff);
+    render(listOfWizards);
   };
 
   var onCoatClick = function () {
@@ -122,7 +122,7 @@
   };
 
   var onSuccess = function (data) {
-    wizards = data;
+    listOfWizards = data;
     update();
   };
 
@@ -137,7 +137,7 @@
   window.backend.load(window.backend.serverUrl.GET, onSuccess, onError);
 
   window.wizards = {
-    wizards: wizards,
+    listOfWizards: listOfWizards,
     update: update
   };
 })();
