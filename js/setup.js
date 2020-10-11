@@ -1,47 +1,46 @@
 'use strict';
 
 (function () {
+  const userDialog = document.querySelector('.setup');
+  const similarListElement = userDialog.querySelector('.setup-similar-list');
 
-  var userDialog = document.querySelector('.setup');
-  var similarListElement = userDialog.querySelector('.setup-similar-list');
+  const form = document.querySelector('.setup-wizard-form');
+  const similarListElementSetup = document.querySelector('.setup-similar');
 
-  var form = document.querySelector('.setup-wizard-form');
-  var similarListElementSetup = document.querySelector('.setup-similar');
-
-  var setup = document.querySelector('.setup');
-  var setupOpen = document.querySelector('.setup-open');
-  var setupClose = setup.querySelector('.setup-close');
+  const setup = document.querySelector('.setup');
+  const setupOpen = document.querySelector('.setup-open');
+  const setupClose = setup.querySelector('.setup-close');
 
   window.utils.showElement(userDialog);
   window.utils.showElement(similarListElement);
   window.utils.showElement(similarListElementSetup);
 
-  var onSetupOpenClick = function () {
+  const onSetupOpenClick = function () {
     window.utils.openPopup();
   };
 
-  var onEnterKeyDown = function (evt) {
+  const onEnterKeyDown = function (evt) {
     if (evt.key === window.utils.key.ENTER) {
       window.utils.openPopup();
     }
   };
 
-  var onSetupCloseClick = function () {
+  const onSetupCloseClick = function () {
     window.utils.closePopup();
   };
 
-  var onSetupEnterKeyDown = function (evt) {
+  const onSetupEnterKeyDown = function (evt) {
     if (evt.key === window.utils.key.ENTER) {
       window.utils.closePopup();
     }
   };
 
-  var onFormSubmit = function (evt) {
+  const onFormSubmit = function (evt) {
     evt.preventDefault();
     window.backend.save(window.backend.serverUrl.PUSH, new FormData(form), window.utils.closePopup(), onError);
   };
 
-  var onError = function (error) {
+  const onError = function (error) {
     window.utils.show(error);
   };
 
@@ -50,5 +49,4 @@
   setupClose.addEventListener('click', onSetupCloseClick);
   setupClose.addEventListener('keydown', onSetupEnterKeyDown);
   form.addEventListener('submit', onFormSubmit);
-
 })();
