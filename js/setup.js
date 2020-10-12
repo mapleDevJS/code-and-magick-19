@@ -1,46 +1,45 @@
 'use strict';
 
 (function () {
-  const userDialog = document.querySelector('.setup');
-  const similarListElement = userDialog.querySelector('.setup-similar-list');
+  var userDialog = document.querySelector('.setup');
+  var similarListElement = userDialog.querySelector('.setup-similar-list');
+  var form = document.querySelector('.setup-wizard-form');
+  var similarListElementSetup = document.querySelector('.setup-similar');
 
-  const form = document.querySelector('.setup-wizard-form');
-  const similarListElementSetup = document.querySelector('.setup-similar');
-
-  const setup = document.querySelector('.setup');
-  const setupOpen = document.querySelector('.setup-open');
-  const setupClose = setup.querySelector('.setup-close');
+  var setup = document.querySelector('.setup');
+  var setupOpen = document.querySelector('.setup-open');
+  var setupClose = setup.querySelector('.setup-close');
 
   window.utils.showElement(userDialog);
   window.utils.showElement(similarListElement);
   window.utils.showElement(similarListElementSetup);
 
-  const onSetupOpenClick = function () {
+  var onSetupOpenClick = function () {
     window.utils.openPopup();
   };
 
-  const onEnterKeyDown = function (evt) {
+  var onEnterKeyDown = function (evt) {
     if (evt.key === window.utils.key.ENTER) {
       window.utils.openPopup();
     }
   };
 
-  const onSetupCloseClick = function () {
+  var onSetupCloseClick = function () {
     window.utils.closePopup();
   };
 
-  const onSetupEnterKeyDown = function (evt) {
+  var onSetupEnterKeyDown = function (evt) {
     if (evt.key === window.utils.key.ENTER) {
       window.utils.closePopup();
     }
   };
 
-  const onFormSubmit = function (evt) {
+  var onFormSubmit = function (evt) {
     evt.preventDefault();
     window.backend.save(window.backend.serverUrl.PUSH, new FormData(form), window.utils.closePopup(), onError);
   };
 
-  const onError = function (error) {
+  var onError = function (error) {
     window.utils.show(error);
   };
 
