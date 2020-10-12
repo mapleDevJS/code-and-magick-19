@@ -1,10 +1,8 @@
 'use strict';
 
 (function () {
-
   var userDialog = document.querySelector('.setup');
   var similarListElement = userDialog.querySelector('.setup-similar-list');
-
   var form = document.querySelector('.setup-wizard-form');
   var similarListElementSetup = document.querySelector('.setup-similar');
 
@@ -50,5 +48,4 @@
   setupClose.addEventListener('click', onSetupCloseClick);
   setupClose.addEventListener('keydown', onSetupEnterKeyDown);
   form.addEventListener('submit', onFormSubmit);
-
 })();
